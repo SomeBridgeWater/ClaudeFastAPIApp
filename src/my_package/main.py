@@ -30,12 +30,11 @@ async def read_root() -> RootResponse:
 async def read_item(item_id: int) -> ItemResponse:
     return ItemResponse(item_id=item_id)
 
-# ここから下は「uv run main.py(my-command)」、「python main.py」と打った時だけ動く
-# uvicornを直接実行するときは、「uv run uvicorn my_package.main:app --reload」
 def main():
     uvicorn.run("my_package.main:app", host="0.0.0.0", port=8000, reload=True)
 
-
+# ここから下は「uv run main.py(my-command)」、「python main.py」と打った時だけ動く
+# uvicornを直接実行するときは、「uv run uvicorn my_package.main:app --reload」
 if __name__ == "__main__":
     main()
 
