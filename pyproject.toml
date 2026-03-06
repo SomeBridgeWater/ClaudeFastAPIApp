@@ -1,0 +1,18 @@
+[project]
+name = "calude-fastapi-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.135.1",
+    "uvicorn>=0.41.0",
+]
+[project.scripts]
+my-command = "my_package.main:main"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+]
