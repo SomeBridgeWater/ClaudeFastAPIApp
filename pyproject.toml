@@ -8,6 +8,10 @@ dependencies = [
     "fastapi>=0.135.1",
     "uvicorn>=0.41.0",
 ]
+
+[tool.uv]
+package = true
+
 [project.scripts]
 my-command = "my_package.main:main"
 
