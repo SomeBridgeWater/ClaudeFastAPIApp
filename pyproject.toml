@@ -1,5 +1,5 @@
 [project]
-name = "calude-fastapi-app"
+name = "claude-fastapi-app"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
