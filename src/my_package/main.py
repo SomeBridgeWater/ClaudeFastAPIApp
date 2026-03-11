@@ -1,9 +1,10 @@
 import time
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from pydantic import BaseModel
 
 app = FastAPI()
+router = APIRouter(prefix="/v1")
 
 
 class RootResponse(BaseModel):
@@ -20,15 +21,17 @@ def get_external_data():
     time.sleep(3)  # 3秒間、通信を待っているフリをする
     return {"status": "success", "data": "Real Data from Server"}
 
-@app.get("/", response_model=RootResponse)
+@router.get("/", response_model=RootResponse)
 async def read_root() -> RootResponse:
     #data = get_external_data()
     return RootResponse(message="Hello World")
 
 
-@app.get("/items/{item_id}", response_model=ItemResponse)
+@router.get("/items/{item_id}", response_model=ItemResponse)
 async def read_item(item_id: int) -> ItemResponse:
     return ItemResponse(item_id=item_id)
+
+app.include_router(router)
 
 def main():
     uvicorn.run("my_package.main:app", host="0.0.0.0", port=8000, reload=True)
