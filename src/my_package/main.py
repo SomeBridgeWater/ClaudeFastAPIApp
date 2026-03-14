@@ -1,3 +1,4 @@
+import asyncio
 import time
 import uvicorn
 from fastapi import FastAPI, APIRouter
@@ -21,16 +22,18 @@ class RootResponse(BaseModel):
 class ItemResponse(BaseModel):
     item_id: int
 
-# --- ここから追加 ---
-#def get_external_data():
-#    """外部APIからデータを取得する（想定）の重い処理"""
-#    print("Connecting to external API...")
-#    time.sleep(3)  # 3秒間、通信を待っているフリをする
-#    return {"status": "success", "data": "Real Data from Server"}
+# ミドルウェアで一括設定する
+#@app.middleware("http")
+#async def add_process_time_header(request: Request, call_next):
+#    await asyncio.sleep(3) # 全てのリクエストに3秒追加
+#    response = await call_next(request)
+#    return response
 
 @router.get("/", response_model=RootResponse)
 async def read_root() -> RootResponse:
-    #data = get_external_data()
+    # 3秒間待機(非同期)
+    await asyncio.sleep(3)
+
     return RootResponse(
         message="Hello World",
         commit=CommitInfo(commit1="commit1test", commit2="commit2test"),
