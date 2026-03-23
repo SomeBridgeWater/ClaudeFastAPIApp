@@ -18,5 +18,6 @@ my-command = "my_package.main:main"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
+    "pip-audit>=2.10.0",
     "pytest>=9.0.2",
 ]
