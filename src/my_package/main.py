@@ -22,6 +22,15 @@ class RootResponse(BaseModel):
 class ItemResponse(BaseModel):
     item_id: int
 
+
+class ElectricCarSalesEntry(BaseModel):
+    year: int
+    share: int
+
+
+class GraphResponse(BaseModel):
+    electricCarSales: list[ElectricCarSalesEntry]
+
 # ミドルウェアで一括設定する
 #@app.middleware("http")
 #async def add_process_time_header(request: Request, call_next):
@@ -44,6 +53,22 @@ async def read_root() -> RootResponse:
 @router.get("/items/{item_id}", response_model=ItemResponse)
 async def read_item(item_id: int) -> ItemResponse:
     return ItemResponse(item_id=item_id)
+
+
+@router.get("/chart", response_model=GraphResponse)
+async def get_graph() -> GraphResponse:
+    return GraphResponse(
+        electricCarSales=[
+            ElectricCarSalesEntry(year=2010, share=5),
+            ElectricCarSalesEntry(year=2012, share=10),
+            ElectricCarSalesEntry(year=2014, share=15),
+            ElectricCarSalesEntry(year=2016, share=18),
+            ElectricCarSalesEntry(year=2018, share=23),
+            ElectricCarSalesEntry(year=2020, share=34),
+            ElectricCarSalesEntry(year=2022, share=43),
+            ElectricCarSalesEntry(year=2024, share=54),
+        ]
+    )
 
 app.include_router(router)
 
