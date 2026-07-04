@@ -57,6 +57,9 @@ async def read_item(item_id: int) -> ItemResponse:
 
 @router.get("/chart", response_model=GraphResponse)
 async def get_graph() -> GraphResponse:
+    # 3秒間待機(非同期)
+    await asyncio.sleep(3)
+
     return GraphResponse(
         electricCarSales=[
             ElectricCarSalesEntry(year=2010, share=5),
